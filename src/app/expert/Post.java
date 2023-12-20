@@ -1,9 +1,12 @@
 package app.expert;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Post {
     private String content;
+    private List<Repost> reposts = new ArrayList<>();
 
     public Post(String content) {
         this.content = content;
@@ -15,6 +18,22 @@ public class Post {
 
     public void setContent(String content) {
         this.content = content;
+        notifyAllReposts(); // Observer
+    }
+
+    public List<Repost> getReposts() {
+        return reposts;
+    }
+
+    public void addRepost(Repost repost) {
+        reposts.add(repost);
+        repost.setParentPost(this);
+    }
+
+    private void notifyAllReposts() {
+        for (Repost repost : reposts) {
+            repost.update();
+        }
     }
 
     @Override
@@ -34,7 +53,7 @@ public class Post {
     public String toString() {
         return "Post{" +
                "content='" + getContent() + '\'' +
+               ", reposts='" + reposts + '\'' +
                '}';
     }
-
 }

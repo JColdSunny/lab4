@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class User {
+public class User implements Cloneable {
     private final String name;
     private final List<HidePostDecorator> posts = new ArrayList<>();
 
@@ -28,6 +28,19 @@ public class User {
 
     public void removePost(HidePostDecorator post) {
         posts.remove(post);
+    }
+
+    public void repost(HidePostDecorator post) {
+        post.getPost().addRepost(new Repost(this, post.getPost()));
+    }
+
+    @Override
+    public User clone() {
+        try {
+            return (User) super.clone();
+        } catch (CloneNotSupportedException ignore) {
+        }
+        return null;
     }
 
     @Override

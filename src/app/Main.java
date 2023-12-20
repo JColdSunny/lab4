@@ -48,6 +48,19 @@ public class Main {
 
         postHistory.popByContent("1");
         System.out.println("Restore karishka the first post: " + karishka);
+
+        /////// New
+        User karishkaClone = karishka.clone();
+        System.out.println("Cloned Karishka: " + karishkaClone);
+
+        User ladybird = userController.createUser("Ladybird");
+        ladybird.repost(karishka.getPosts().get(0));
+
+        System.out.println("Add repost: " + karishka);
+
+        karishka.getPosts().get(0).getPost().setContent("updated post");
+
+        System.out.println("Updated repost: " + karishka);
     }
 
 }

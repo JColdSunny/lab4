@@ -44,8 +44,11 @@ public class HidePostDecorator {
 
     @Override
     public String toString() {
-        return "Post{" +
-               "content=" + getContent() +
-               '}';
+        StringBuilder builder = new StringBuilder("Post{");
+        builder.append("content=").append(getContent());
+        if (!post.getReposts().isEmpty()) {
+            builder.append(", ").append("reposts=").append(post.getReposts()).append("}");
+        }
+        return builder.toString();
     }
 }
